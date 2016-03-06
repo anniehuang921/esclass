@@ -28,13 +28,13 @@ It is convinent to query in Media Sources Search Engine (nccu project of floodfi
   * "2016-03-06"
   * None
   
-## esc 結果
+## esc 結果（函數）
 * **result ( size )**
 帶出需要的 *前幾筆* 資料觀看。參數 size 給 int。
   * result(4)  
-* **count**
+* **count()**
 查詢出來的資料筆數。
-* **search**
+* **search()**
 查詢結果。
 
 ## Example
