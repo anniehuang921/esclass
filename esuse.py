@@ -9,10 +9,11 @@ class esf:
     def __init__(self,doc_type):
         self.index = self.index
         self.doc_type = doc_type
-    def must(self,must_cond):
+    def must(self,must_cond,y):
         query = []
         for cond in must_cond:
             query.append({"match_phrase":{"_all":cond}},)
+        query.append(y)
         return query
 
     def should(self,should_cond):
@@ -26,7 +27,7 @@ class esf:
         for cond in mustnot_cond:
             query.append({"match_phrase":{"_all":cond}},)
         return query
-
+    
 class esc(esf):
     es = esf.es
     es_index = esf.es_index
@@ -37,12 +38,12 @@ class esc(esf):
         self.time_sort = time_sort
         self.booling={"filtered": {
             "filter": {"bool":{
-            "must":esf.must(self,must_cond).append("range":{"datetime":{"gte":date1,"lte":date2}}),
+            "must":esf.must(self,must_cond,{"range":{"time":{"gte": date1 ,"lte": date2 }}}),
             "should":esf.should(self,should_cond),
-            "must_not":esf.must_not(self,mustnot_cond),
-            
+            "must_not":esf.must_not(self,mustnot_cond),   
                     }}}}
         self.sort={"time": { "order": "desc" }}
+        print (self.booling)
 
     def result(self,size):
         if self.time_sort == True:            
